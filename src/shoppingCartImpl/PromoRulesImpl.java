@@ -67,6 +67,8 @@ public class PromoRulesImpl implements PromoRules {
 		if(promoCodeVerified(promoCode)){
 			ListIterator<Product> prItr = purchasedList.listIterator();
 			prItr.next().getPrice().multiply(new BigDecimal(0.1));
+			
+			//todo
 		}
 		return null;
 	}
