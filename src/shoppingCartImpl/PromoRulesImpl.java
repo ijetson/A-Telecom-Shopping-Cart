@@ -52,9 +52,9 @@ public class PromoRulesImpl implements PromoRules {
 		pr2Gb.setProductCode("ult_small");
 		pr2Gb.setProductName("1 GB Data Pack");
 
-		ListIterator<Product> prItr= purchasedList.listIterator();
-		while(prItr.hasNext()){
-			if(prItr.next().getProductCode().equals("ult_medium")){
+		ListIterator<Product> prItr = purchasedList.listIterator();
+		while (prItr.hasNext()) {
+			if (prItr.next().getProductCode().equals("ult_medium")) {
 				prItr.add(pr2Gb);
 			}
 		}
@@ -63,19 +63,31 @@ public class PromoRulesImpl implements PromoRules {
 	}
 
 	@Override
-	public BigDecimal usePromoCode(List<Product>purchasedList, String promoCode, BigDecimal discount) {
-		if(promoCodeVerified(promoCode)){
+	public BigDecimal usePromoCode(List<Product> purchasedList, String promoCode, BigDecimal discount) {
+		BigDecimal discountPrice = new BigDecimal(0);
+
+		if (promoCodeVerified(promoCode)) {
 			ListIterator<Product> prItr = purchasedList.listIterator();
-			prItr.next().getPrice().multiply(new BigDecimal(0.1));
-			
-			//todo
+			while (prItr.hasNext()) {
+				Product discountProduct = prItr.next();
+				discountPrice = prItr.next().getPrice().subtract(prItr.next().getPrice().multiply(discount));
+				discountPrice.add(discountPrice);
+				discountPrice.setScale(2, RoundingMode.HALF_UP);
+				discountProduct.setPrice(discountPrice);
+				prItr.set(discountProduct);
+			}
+
+			for (int i = 0; i < purchasedList.size(); i++) {
+				discountPrice = discountPrice.add(purchasedList.get(i).getPrice()).setScale(2, RoundingMode.HALF_UP);
+			}
+
 		}
-		return null;
+		return discountPrice;
 	}
 
 	@Override
 	public boolean promoCodeVerified(String promoCode) {
-		if(promoCode.equals("I<3AMAYSIM")){
+		if (promoCode.equals("I<3AMAYSIM")) {
 			return true;
 		}
 		return false;

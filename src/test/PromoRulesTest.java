@@ -11,6 +11,7 @@ import org.junit.Test;
 import shoppingCart.Product;
 import shoppingCartImpl.PromoRulesImpl;
 import shoppingCartInterface.PromoRules;
+import subscriber.SubscriberInfo;
 
 public class PromoRulesTest {
 
@@ -61,7 +62,7 @@ public class PromoRulesTest {
 		pr3.setProductName("Unlimited 2GB");
 		
 		List<Product>purchasedList = new ArrayList<>();
-		purchasedList.add(pr1);
+		purchasedList.add(pr1); 
 		purchasedList.add(pr2);
 		purchasedList.add(pr3);
 		
@@ -70,6 +71,24 @@ public class PromoRulesTest {
 		assertEquals(testResultList.size(), 5);
 	}
 	
+	@Test
+	public void testUsePromoCode(){
+	
+		Product pr1 = new Product();
+		Product pr2 = new Product();
+		
+		pr1.setPrice(new BigDecimal(24.90));
+		pr2.setPrice(new BigDecimal(9.90));
+		
+		List<Product>prList = new ArrayList<>();
+		prList.add(pr2);
+		prList.add(pr1);
+		
+		PromoRules pr = new PromoRulesImpl();
+		assertEquals(new BigDecimal(31.32).setScale(2, RoundingMode.HALF_UP), (pr.usePromoCode(prList, "I<3AMAYSIM", new BigDecimal(0.1)).setScale(2, RoundingMode.HALF_UP)));
+		
+		
+	}
 	
 	
 
