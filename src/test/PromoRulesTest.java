@@ -73,14 +73,11 @@ public class PromoRulesTest {
 	
 	@Test
 	public void testUsePromoCode(){
-	
-		Product pr1 = new Product();
-		Product pr2 = new Product();
 		
-		pr1.setPrice(new BigDecimal(24.90));
-		pr2.setPrice(new BigDecimal(9.90));
+		BigDecimal pr1 =  new BigDecimal(24.90);
+		BigDecimal pr2 =  new BigDecimal(9.90);
 		
-		List<Product>prList = new ArrayList<>();
+		List<BigDecimal>prList = new ArrayList<>();
 		prList.add(pr2);
 		prList.add(pr1);
 		

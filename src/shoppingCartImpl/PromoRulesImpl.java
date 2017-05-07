@@ -63,26 +63,16 @@ public class PromoRulesImpl implements PromoRules {
 	}
 
 	@Override
-	public BigDecimal usePromoCode(List<Product> purchasedList, String promoCode, BigDecimal discount) {
-		BigDecimal discountPrice = new BigDecimal(0);
-
+	public BigDecimal usePromoCode(List<BigDecimal> originalPurchasedPriceList, String promoCode, BigDecimal discount) {
+		BigDecimal discountedPrice = BigDecimal.ZERO;
+		// create a stream add all the purchase then get the discounted price
 		if (promoCodeVerified(promoCode)) {
-			ListIterator<Product> prItr = purchasedList.listIterator();
-			while (prItr.hasNext()) {
-				Product discountProduct = prItr.next();
-				discountPrice = prItr.next().getPrice().subtract(prItr.next().getPrice().multiply(discount));
-				discountPrice.add(discountPrice);
-				discountPrice.setScale(2, RoundingMode.HALF_UP);
-				discountProduct.setPrice(discountPrice);
-				prItr.set(discountProduct);
-			}
-
-			for (int i = 0; i < purchasedList.size(); i++) {
-				discountPrice = discountPrice.add(purchasedList.get(i).getPrice()).setScale(2, RoundingMode.HALF_UP);
-			}
-
+			BigDecimal purchasedListTotal = originalPurchasedPriceList.stream().reduce(BigDecimal.ZERO,
+					BigDecimal::add);
+			discountedPrice = purchasedListTotal.subtract(purchasedListTotal.multiply(discount));
+			return discountedPrice;
 		}
-		return discountPrice;
+		return null;
 	}
 
 	@Override

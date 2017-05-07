@@ -9,7 +9,7 @@ public interface PromoRules {
 	public BigDecimal moreForLessPromo(Product product, int qty);
 	public BigDecimal bulkDiscountPromo(List<BigDecimal> currentPrice);
 	public List<Product> bundleFreeItemPromo(List<Product>purchasedList);
-	public BigDecimal usePromoCode(List<Product> purchasedList, String promoCode, BigDecimal discount);
+	public BigDecimal usePromoCode(List<BigDecimal> originalPurchasedPriceList, String promoCode, BigDecimal discount);
 	public boolean promoCodeVerified(String promoCode);
 
 }
