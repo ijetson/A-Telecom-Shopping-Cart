@@ -2,7 +2,10 @@ package shoppingCartImpl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -17,10 +20,10 @@ public class PromoRulesImpl implements PromoRules {
 
 	@Override
 	public BigDecimal moreForLessPromo(Product product, int qty) {
+
 		if (qty == 3) {
 			discountPay = product.getPrice().multiply(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
 		}
-		// TODO more than 3 items
 
 		return discountPay;
 	}
@@ -81,6 +84,13 @@ public class PromoRulesImpl implements PromoRules {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isPurchasedDateOnFirstMonth(LocalDate purchasedDate, LocalDate joinDate) {
+		Period period = Period.ofMonths(1);
+		LocalDate firstMonthEndDate = joinDate.plusDays(period.getMonths());
+		return !(purchasedDate.isBefore(joinDate) || purchasedDate.isAfter(firstMonthEndDate));
 	}
 
 }
