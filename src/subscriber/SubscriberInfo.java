@@ -1,10 +1,10 @@
 package subscriber;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class SubscriberInfo {
 	private long subscriberId;
-	private Date subscriberJoinDate;
+	private LocalDate subscriberJoinDate;
 
 	public long getSubscriberId() {
 		return subscriberId;
@@ -12,10 +12,10 @@ public class SubscriberInfo {
 	public void setSubscriberId(long subscriberId) {
 		this.subscriberId = subscriberId;
 	}
-	public Date getSubscriberJoinDate() {
+	public LocalDate getSubscriberJoinDate() {
 		return subscriberJoinDate;
 	}
-	public void setSubscriberJoinDate(Date subscriberJoinDate) {
+	public void setSubscriberJoinDate(LocalDate subscriberJoinDate) {
 		this.subscriberJoinDate = subscriberJoinDate;
 	}
 	

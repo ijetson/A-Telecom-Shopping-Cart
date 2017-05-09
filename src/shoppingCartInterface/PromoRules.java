@@ -7,7 +7,7 @@ import shoppingCart.Product;
 
 public interface PromoRules {
 	
-	public BigDecimal moreForLessPromo(Product product, int qty);
+	public BigDecimal moreForLessPromo(List<Product>purchasedList, LocalDate purchasedDate, LocalDate joinDate);
 	public BigDecimal bulkDiscountPromo(List<BigDecimal> currentPrice);
 	public List<Product> bundleFreeItemPromo(List<Product>purchasedList);
 	public BigDecimal usePromoCode(List<BigDecimal> originalPurchasedPriceList, String promoCode, BigDecimal discount);

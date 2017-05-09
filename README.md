@@ -1,4 +1,4 @@
-# amaysim_shopping_cart
+# A Telecom Shopping Cart
 
 ShoppingCart Interface with Implementation
 Clone Project run the test unit cases which initially depends on the given scenario
